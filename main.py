@@ -12,8 +12,8 @@ load_dotenv()
 app = FastAPI()
 
 # 🔐 Endpoint et clé Azure ML depuis .env
-endpoint = os.getenv("AZUREML_ENDPOINT")
-api_key = os.getenv("AZUREML_API_KEY")
+endpoint = os.getenv("AZURE_ENDPOINT")
+api_key = os.getenv("AZURE_KEY")
 
 # Headers pour requête POST vers Azure ML
 headers = {
@@ -31,7 +31,7 @@ def home():
     return {"message": "API IRIS FastAPI connectée à Azure ML"}
 
 # 🔮 Endpoint /predict
-@app.post("/predict")
+@app.post("/score")
 def predict(input_data: InputData):
     payload = {"data": input_data.data}
     response = requests.post(endpoint, headers=headers, json=payload)
